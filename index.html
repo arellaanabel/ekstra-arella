@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulir Ekstrakurikuler</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+            width: 400px;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .gender {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 5px;
+        }
+        .checkbox-group {
+            margin-top: 5px;
+        }
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            background: #fafafa;
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        .checkbox-item img {
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+            border-radius: 5px;
+            object-fit: cover;
+        }
+        button {
+            width: 48%;
+            padding: 10px;
+            margin-top: 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .submit-btn {
+            background-color: #28a745;
+            color: white;
+        }
+        .reset-btn {
+            background-color: #dc3545;
+            color: white;
+        }
+        .btn-group {
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Formulir Ekstrakurikuler</h2>
+        <form id="formEkskul" action="simpan.php" method="POST" enctype="multipart/form-data">
+            <label>Nama Lengkap</label>
+            <input type="text" name="nama" required>
+
+            <label>NIS</label>
+            <input type="text" name="nis" required>
+
+            <label>Kelas & Jurusan</label>
+            <select name="jurusan" required>
+                <option value="">-- Pilih Jurusan --</option>
+                <option value="TKJ">TKJ</option>
+                <option value="RPL">RPL</option>
+                <option value="PG">PG</option>
+            </select>
+
+            <label>Tanggal Lahir</label>
+            <input type="date" name="tgl_lahir" required>
+
+            <label>Jenis Kelamin</label>
+            <div class="gender">
+                <label><input type="radio" name="gender" value="Laki-laki" required> Laki-laki</label>
+                <label><input type="radio" name="gender" value="Perempuan"> Perempuan</label>
+            </div>
+
+            <label>Nomor HP</label>
+            <input type="tel" name="hp" pattern="08[0-9]{8,11}" required placeholder="08xxxxxxxxxx">
+
+            <label>Email</label>
+            <input type="email" name="email" required>
+
+            <label>Pilih Ekstrakurikuler (Maks 2)</label>
+            <div class="checkbox-group">
+                <div class="checkbox-item">
+                    <img src="basket.jpg" alt="Basket">
+                    <label><input type="checkbox" name="ekskul[]" value="Basket"> Basket</label>
+                </div>
+                <div class="checkbox-item">
+                    <img src="pramuka.jpg" alt="Pramuka">
+                    <label><input type="checkbox" name="ekskul[]" value="Pramuka"> Pramuka</label>
+                </div>
+                <div class="checkbox-item">
+                    <img src="paskibra.jpg" alt="Paskibra">
+                    <label><input type="checkbox" name="ekskul[]" value="Paskibra"> Paskibra</label>
+                </div>
+                <div class="checkbox-item">
+                    <img src="futsal.jpg" alt="Futsal">
+                    <label><input type="checkbox" name="ekskul[]" value="Futsal"> Futsal</label>
+                </div>
+            </div>
+
+            <label>Alasan Memilih Ekskul</label>
+            <textarea name="alasan" rows="3" required></textarea>
+
+            <label>Upload Foto</label>
+            <input type="file" name="foto" accept="image/*">
+
+            <div class="btn-group">
+                <button type="submit" class="submit-btn">Submit</button>
+                <button type="reset" class="reset-btn">Reset</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        const form = document.getElementById('formEkskul');
+
+        form.addEventListener('submit', function(event) {
+            const checkboxes = document.querySelectorAll('input[name="ekskul"]:checked');
+            
+            if (checkboxes.length < 1) {
+                alert("Pilih minimal 1 ekstrakurikuler!");
+                event.preventDefault();
+                return;
+            }
+
+            if (checkboxes.length > 2) {
+                alert("Anda hanya boleh memilih maksimal 2 ekstrakurikuler!");
+                event.preventDefault();
+                return;
+            }
+        });
+    </script>
+</body>
+</html>
